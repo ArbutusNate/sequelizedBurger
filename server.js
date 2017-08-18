@@ -10,9 +10,6 @@ var PORT = process.env.PORT || 8080;
 // var db = require(__dirname + "/models");
 var db = require("./models");
 
-// console.log(db);
-
-
 // Serve static content for the app from the "asset" directory in the application directory.
 
 app.use(bodyParser.json());
@@ -20,8 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(methodOverride("_method"));
-
-// app.use(express.static("assets"));
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
@@ -33,8 +28,6 @@ app.set("view engine", "handlebars");
 require("./routes/api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
-
-
 // require("./controllers/burger-controller.js")(app);
 
 db.sequelize.sync({force:true}).then(function() {
@@ -42,3 +35,4 @@ db.sequelize.sync({force:true}).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
+
