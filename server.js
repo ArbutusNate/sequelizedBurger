@@ -7,8 +7,8 @@ var path = require("path");
 var app = express();
 var PORT = process.env.PORT || 8080;
 
-// var db = require(__dirname + "/models");
-var db = require("./models");
+var db = require(__dirname + "/models");
+// var db = require("./models");
 
 // Serve static content for the app from the "asset" directory in the application directory.
 
