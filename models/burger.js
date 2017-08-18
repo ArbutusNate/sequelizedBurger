@@ -1,31 +1,30 @@
-var orm = require("../config/orm.js");
+// Dependencies
+// =============================================================
 
-var burger = {
-  //Pass in callback to ORM
-  all: function(cb) {
-    console.log("burger.js running 'all' function")
-    orm.selectAll(function(res) {
-      cb(res);
-    })
-  },
-  create: function(val , cb){
-    orm.create(val, function(req, res){
-      console.log("Req: " + req);
-      console.log("Res: " + res);
-      cb(res);
-    })
-  },
-  devour: function(devoured, condition, cb){
-    console.log("burger.js devoured: " + devoured);
-    console.log("burger.js condition: " + condition);
-              //Devoured, condition, cb)
-    orm.devour(devoured, condition, function(req, res){
-      console.log("burger.js is running 'devour' function on id" + condition + ".");
-      cb(res);
-    })
-  }
-  //Pass in BurgerID and callback
-  // devour: function(){}
+// // This may be confusing but here Sequelize (capital) references the standard library
+var Sequelize = require("sequelize");
+// // sequelize (lowercase) references our connection to the DB.
+var sequelize = require("../config/connection.js");
+
+var burger = function (sequelize, DataTypes) {
+  var Burger = sequelize.define("Burger", {
+    burger_name: Sequelize.STRING,
+    devoured:
+    {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    }
+  },{
+    timestamps: true
+  })
+  // Burger.sync();
+  return Burger;
 }
+
+// Export the burger model for other files to use
 
 module.exports = burger;
